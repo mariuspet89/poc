@@ -46,6 +46,7 @@ export class AuthenticationComponent implements OnInit {
       this.authService.login(username, password).subscribe(
         responseData => {
           console.log(responseData);
+          console.log(this.authService.token);
         },
         errorMessage => {
           console.log(errorMessage)
@@ -53,5 +54,6 @@ export class AuthenticationComponent implements OnInit {
       )
           }
      this.isDisabled = false;
+    this.profileForm.reset();
   }
 }

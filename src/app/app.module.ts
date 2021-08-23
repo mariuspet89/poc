@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
+import {JwtServiceModule} from "./authentication/jwt-service.module";
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [JwtServiceModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

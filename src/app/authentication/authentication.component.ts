@@ -45,8 +45,8 @@ export class AuthenticationComponent implements OnInit {
     if (val.username && val.password) {
       this.authService.login(username, password).subscribe(
         responseData => {
-          console.log(responseData);
-          console.log(this.authService.token);
+          // console.log(responseData);
+          // console.log(this.authService.token);
         },
         errorMessage => {
           console.log(errorMessage)

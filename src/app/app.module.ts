@@ -7,8 +7,8 @@ import {ListPageComponent} from './list-page/list-page.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
-import {HttpClientModule} from "@angular/common/http";
-import {JwtServiceModule} from "./authentication/jwt-service.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthenticationInterceptor} from "./authentication/authentication-interceptor";
 
 
 @NgModule({
@@ -25,7 +25,13 @@ import {JwtServiceModule} from "./authentication/jwt-service.module";
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [JwtServiceModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

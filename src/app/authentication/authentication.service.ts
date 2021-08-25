@@ -1,38 +1,45 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {tap} from "rxjs/operators";
-import {JwtServiceModule} from "./jwt-service.module";
+import {HttpClient} from "@angular/common/http";
+import {BehaviorSubject, Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {User} from "./user.model";
+import {LoginResponse} from "./loginresponce.model";
+import jwt_decode from "jwt-decode";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  //private username: User = null;
-  public token: string = '';
 
-  constructor(private http: HttpClient, private jwtService: JwtServiceModule) {
+  private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private token: BehaviorSubject<LoginResponse | null> = new BehaviorSubject<LoginResponse | null>(null);
+
+  constructor(private http: HttpClient) {
   }
 
-
-  login(username: string, password: string): Observable<HttpResponse<any>> {
-    let token: Object | null;
-    //let jwtService: any;
+  login(username: string, password: string): Observable<LoginResponse> {
 
 
-    return this.http.post('http://localhost:3000/api/v1/auth/login', {
+    return this.http.post<LoginResponse>('http://localhost:3000/api/v1/auth/login', {
         username: username, password: password
-      }, {observe: 'response'}
-    ).pipe(tap(x => {
-git       token = x.body;
-      // @ts-ignore
-      this.token = token.access_token;
-      console.log(this.token);
-      if (this.token)
-        console.log(this.jwtService.decodeToken(this.token));
-    }));
+      }
+    ).pipe(
+      map(loginResponse => {
+        this.token.next(loginResponse)
+        this.user.next( {
+          username: username,
+          password: password
+        })
+        jwt_decode(loginResponse.access_token);
+        return loginResponse;
+      })
+    );
+  }
 
+  public getToken(): Observable<LoginResponse | null> {
+    return this.token.asObservable();
   }
 
 

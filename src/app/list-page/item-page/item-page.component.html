@@ -1,0 +1,32 @@
+<a
+  [routerLink]="[index]"
+  routerLinkActive="active">
+  <div class="post">
+    <div class="id">
+      <p>{{ announcement.id }}</p>
+    </div>
+    <div class="user">
+      <div class="firstName">
+        <p>{{ announcement.publisher.firstName }}</p>
+      </div>
+      <div class="lastName">
+        <p>{{ announcement.publisher.lastName }}</p>
+      </div>
+    </div>
+    <div class="read">
+      <p>{{ announcement.read }}</p>
+    </div>
+    <div class="read">
+      <p>{{ announcement.important }}</p>
+    </div>
+    <div class="title">
+      <p>{{ announcement.title }}</p>
+    </div>
+    <div class="text">
+      <p>{{ announcement.text }}</p>
+    </div>
+  </div>
+  <br>
+</a>
+
+<!--<button (click)="getPosts()">get items</button>-->

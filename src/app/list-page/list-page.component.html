@@ -1,1 +1,15 @@
-<p>list-page works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h3 style="text-align:left">
+        Anunturi
+      </h3>
+      <app-item-page
+      *ngFor="let announcementEl of itemList; let i = index"
+      [announcement]="announcementEl"
+      [index]="i"
+      ></app-item-page>
+      <button (click)="getPosts()">get items1</button>
+    </div>
+  </div>
+</div>

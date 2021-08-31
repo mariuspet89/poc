@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./authentication/authentication-interceptor";
+import { ItemPageComponent } from './list-page/item-page/item-page.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {AuthenticationInterceptor} from "./authentication/authentication-interce
     AppComponent,
     AuthenticationComponent,
     ListPageComponent,
+    ItemPageComponent,
   ],
   imports: [
     BrowserModule,

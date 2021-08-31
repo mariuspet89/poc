@@ -2,6 +2,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest} from "
 import {AuthenticationService} from "./authentication.service";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {switchMap} from "rxjs/operators";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -10,23 +11,13 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    let token;
-    this.authenticationService.getToken().subscribe({
-      next: value => token = value?.access_token
-    })
+    return this.authenticationService.getToken().pipe(switchMap(token => {
 
-    if (token) {
-      console.log(token);
       const cloned = req.clone({
-       headers: req.headers.set('Authorization', 'Bearer '+ token)
+        headers: req.headers.set('Authorization', 'Bearer ' + token)
       });
       return next.handle(cloned);
-    } else {
-      return next.handle(req);
-   }
-
+    })
+    )
   }
-
-
-
 }

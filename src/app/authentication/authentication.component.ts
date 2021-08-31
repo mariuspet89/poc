@@ -23,7 +23,7 @@ export class AuthenticationComponent implements OnInit {
       Validators.required])
   });
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private authService: AuthenticationService, private route:Router) {
   }
 
   ngOnInit(): void {
@@ -37,23 +37,24 @@ export class AuthenticationComponent implements OnInit {
     if (!this.profileForm.valid) {
       return;
     }
-
+    this.isDisabled = true;
     const val = this.profileForm.value;
-    const username = val.username;
-    const password = val.password;
+
 
     if (val.username && val.password) {
-      this.authService.login(username, password).subscribe(
+      this.authService.login(val.username, val.password).subscribe(
         responseData => {
-          // console.log(responseData);
-          // console.log(this.authService.token);
+          console.log(responseData);
+          this.route.navigate(['list-page']);
         },
         errorMessage => {
-          console.log(errorMessage)
+          console.log(errorMessage);
+          this.isDisabled=false;
+          this.profileForm.reset();
         }
       )
-          }
-     this.isDisabled = false;
-    this.profileForm.reset();
+    }
+
+
   }
 }

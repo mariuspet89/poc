@@ -1,24 +1,21 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Announcement} from "./announcement.model";
-import {map} from "rxjs/operators";
-import {ListPageComponent} from "../list-page.component";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Announcement} from './announcement.model';
+
 
 @Component({
   selector: 'app-item-page',
   templateUrl: './item-page.component.html',
-  styleUrls: ['./item-page.component.css']
+  styleUrls: ['./item-page.component.css'],
 })
-export class ItemPageComponent implements OnInit {
+export class ItemPageComponent {
+  @Input() announcement: Announcement | null = null;
+  @Output() announcementClick: EventEmitter<Announcement | null> =
+    new EventEmitter<Announcement | null>();
 
-@Input() announcement!: Announcement;
-@Input() index!: number;
+  markedAsRead() {
+    if (!this.announcement?.read) {
+      this.announcementClick.emit(this.announcement);
+    }
 
-  constructor() {
   }
-
-  ngOnInit(): void {
-  }
-
-
 }

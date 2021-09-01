@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Announcement} from "./item-page/announcement.model";
-import {map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
+
+
 
 @Component({
   selector: 'app-list-page',
@@ -18,18 +19,34 @@ export class ListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPosts();
   }
 
+  announcementClick(item: Announcement|null){
+    //console.warn(item);
+    if(item){
+     this.http
+      .get<Announcement>(
+        'http://localhost:3000/api/v1/announcements/mark-as-read/' + item.id)
+      .subscribe((responseItem) => {
+        responseItem.read = true;
+        this.itemList.splice(this.itemList.indexOf(item), 1, responseItem);
+        console.log(responseItem);
+      });
+    }
+  }
 
-  getPosts() {
-    return this.http.get<Announcement[]>('http://localhost:3000/api/v1/announcements')
+ private getPosts() {
+    this.http.get<Announcement[]>('http://localhost:3000/api/v1/announcements')
       .subscribe(
         (response: Announcement[]) => {
           this.itemList = response;
-            console.log(response)
+          console.log(response)
         }
       );
   }
+
+
 
 
 }

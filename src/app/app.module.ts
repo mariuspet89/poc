@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {CommonModule} from "@angular/common";
 
 import {AppComponent} from './app.component';
 import {AuthenticationComponent} from './authentication/authentication.component';
@@ -26,6 +27,7 @@ import { ItemPageComponent } from './list-page/item-page/item-page.component';
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
+    CommonModule
   ],
   providers: [
     {

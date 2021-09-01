@@ -5,11 +5,10 @@
         Anunturi
       </h3>
       <app-item-page
-      *ngFor="let announcementEl of itemList; let i = index"
+      *ngFor="let announcementEl of itemList"
       [announcement]="announcementEl"
-      [index]="i"
+      (announcementClick)="announcementClick($event)"
       ></app-item-page>
-      <button (click)="getPosts()">get items1</button>
     </div>
   </div>
 </div>

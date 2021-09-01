@@ -3,7 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthenticationComponent} from "./authentication/authentication.component";
 
 import {ListPageComponent} from "./list-page/list-page.component";
-import {AuthenticationGuard} from "./authentication/authentication.guard";
+
 
 const routes: Routes = [
   {path: 'login', component: AuthenticationComponent},
@@ -14,7 +14,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

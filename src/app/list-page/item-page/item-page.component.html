@@ -1,32 +1,28 @@
-<a
-  [routerLink]="[index]"
-  routerLinkActive="active">
-  <div class="post">
-    <div class="id">
-      <p>{{ announcement.id }}</p>
+<div
+  class="post"
+  *ngIf="announcement"
+  (click)="markedAsRead()"
+  [ngClass]="{
+    'read-post': announcement.read,
+    'important-post': announcement.important
+  }"
+>
+  <div>
+    <h2>{{ announcement.title }}</h2>
+    <p>{{ announcement.text }}</p>
+  </div>
+
+  <div>
+    <label>Publisher</label>
+    <div>
+      <label>FirstName</label>
+      <p>{{ announcement.publisher?.firstName }}</p>
     </div>
-    <div class="user">
-      <div class="firstName">
-        <p>{{ announcement.publisher.firstName }}</p>
-      </div>
-      <div class="lastName">
-        <p>{{ announcement.publisher.lastName }}</p>
-      </div>
-    </div>
-    <div class="read">
-      <p>{{ announcement.read }}</p>
-    </div>
-    <div class="read">
-      <p>{{ announcement.important }}</p>
-    </div>
-    <div class="title">
-      <p>{{ announcement.title }}</p>
-    </div>
-    <div class="text">
-      <p>{{ announcement.text }}</p>
+
+    <div>
+      <label>LastName</label>
+      <p>{{ announcement.publisher?.lastName }}</p>
     </div>
   </div>
-  <br>
-</a>
-
-<!--<button (click)="getPosts()">get items</button>-->
+</div>
+<br />

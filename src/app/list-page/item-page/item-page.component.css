@@ -1,3 +1,16 @@
 .post{
-  border: 1px solid blue ;
+  border: 2px solid darkgrey ;
 }
+p, h2 { display: inline-block;
+  font-weight: bold;
+  color: black;
+  margin-left: 15px;
+}
+div.read-post p, div.read-post h2{
+ font-weight: lighter;
+  color: gray;
+}
+div.important-post p, div.important-post h2{
+  color: crimson ;
+}
+
